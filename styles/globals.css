@@ -4,6 +4,13 @@
 
 @layer components {
   .headerLi {
-    @apply text-primaryColor hover:text-secondaryColor cursor-pointer duration-300;
+    @apply text-primaryColor cursor-pointer duration-300;
   }
 }
+
+/* .banner-background {
+  background-image: url(/images/landscape.png);
+  background-size: cover;
+  background-position: right;
+  background-repeat: no-repeat;
+} */
