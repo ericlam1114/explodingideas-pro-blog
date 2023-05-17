@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { GetStaticProps } from "next";
@@ -21,6 +22,7 @@ type Inputs = {
 
 const Post = ({ post }: PostType) => {
   const [submitted, setSubmitted] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -43,18 +45,21 @@ const Post = ({ post }: PostType) => {
   return (
     <div>
       <Header />
+
       {/*main image*/}
       {/* <img
         className="w-full h-96 object-cover"
         src={urlFor(post.mainImage).url()!}
         alt="coverImage"
       /> */}
+
       {/* {Article} */}
       <div className="max-w-3xl mx-auto mb-10">
         <article className="w-full mx-auto p-5 ">
           <h1 className="font-titleFont font-medium text-[32px] text-primary border-b-[1px] border-b-cyan-800 mt-10 mb-3">
             {post.title}
           </h1>
+
           <h2 className="font-bodyFont text-[18px] text-gray-500 mb-2 border- border-blue-500 rounded-lg p-2">
             Author's Note: "{post.description}"
             <div className="flex items-center gap-2 justify-end">
@@ -72,56 +77,45 @@ const Post = ({ post }: PostType) => {
               </p>
             </div>
           </h2>
+
           <div className="mt-10">
-            <PortableText
-              dataset={process.env.NEXT_PUBLIC_SANITY_DATASET || "production"}
-              projectId={
-                process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "vhhvhe9q"
-              }
-              content={post.body}
-              serializers={{
-                h1: (props: any) => (
-                  <h1
-                    className="text-3xl font-bold my-5 font-titleFont"
-                    {...props}
-                  />
-                ),
-                h2: (props: any) => (
-                  <h2
-                    className="text-2xl font-bold my-5 font-titleFont"
-                    {...props}
-                  />
-                ),
-                h3: (props: any) => (
-                  <h3
-                    className="text-2xl font-bold my-5 font-titleFont"
-                    {...props}
-                  />
-                ),
-                li: ({ children }: any) => (
-                  <li className="ml-4 list-disc">{children}</li>
-                ),
-                link: ({ href, children }: any) => (
-                  <a href={href} className="text-cyan-500 hover:underline">
-                    {children}
-                  </a>
-                ),
-                paragraph: ({ children }: any) => (
-                  <p className="my-4">{children}</p>
-                ),
-              }}
-            />
+          <PortableText
+    dataset={process.env.NEXT_PUBLIC_SANITY_DATASET || "production"}
+    projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "vhhvhe9q"}
+    content={post.body}
+    serializers={{
+      h1: (props: any) => <h1 className="my-h1-class" {...props} />,
+      h2: (props: any) => <h2 className="my-h2-class" {...props} />,
+      h3: (props: any) => <h3 className="my-h3-class" {...props} />,
+      li: ({ children }: any) => (
+        <li className="my-li-class">{children}</li>
+      ),
+      link: ({ href, children }: any) => (
+        <a href={href} className="my-link-class">
+          {children}
+        </a>
+      ),
+      normal: ({ children }: any) => (
+        <p className="my-p-class mt-4">{children}</p> // add margin-top
+      ),
+    }}
+  />
           </div>
         </article>
+
         <hr className="max-w-lg my-5 mx-auto border[1px] border-secondaryColor" />
+
         <div>
           <p className="text-xs- text-secondaryColor uppercase font-titleFont font-bold">
             Enjoyed this article?
           </p>
+
           <h3 className="font-titleFont text-3xl font-bold">
             Leave a comment below!
           </h3>
+
           <hr className="py-3 mt-2" />
+
           {/* {Form will start here} */}
           <input
             {...register("_id")}
@@ -129,6 +123,7 @@ const Post = ({ post }: PostType) => {
             name="_id"
             value={post._id}
           />
+
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="mt-7 flex flex-col gap-6"
@@ -137,6 +132,7 @@ const Post = ({ post }: PostType) => {
               <span className="font-titleFont font-semibold text-base">
                 Name
               </span>
+
               <input
                 {...register("name", { required: true })}
                 className="text-base placeholder:text-sm border-b-[1px] border-secondaryColor py-1 px-4 outline-none focus-within:shadow-xl shadow-secondaryColor"
@@ -144,10 +140,12 @@ const Post = ({ post }: PostType) => {
                 placeholder="Enter your name"
               />
             </label>
+
             <label className="flex flex-col">
               <span className="font-titleFont font-semibold text-base">
                 Email
               </span>
+
               <input
                 {...register("email", { required: true })}
                 className="text-base placeholder:text-sm border-b-[1px] border-secondaryColor py-1 px-4 outline-none focus-within:shadow-xl shadow-secondaryColor"
@@ -155,10 +153,12 @@ const Post = ({ post }: PostType) => {
                 placeholder="Enter your email"
               />
             </label>
+
             <label className="flex flex-col">
               <span className="font-titleFont font-semibold text-base">
                 Comment
               </span>
+
               <textarea
                 {...register("comment", { required: true })}
                 className="text-base placeholder:text-sm border-b-[1px] border-secondaryColor py-1 px-4 outline-none focus-within:shadow-xl shadow-secondaryColor"
@@ -166,6 +166,7 @@ const Post = ({ post }: PostType) => {
                 rows={6}
               />
             </label>
+
             <button
               className="w-full bg-bgColor text-white text-base font-titleFont font-semibold tracking-wider uppercase py-2 rounded-sm hover:bg-secondaryColor duration-300"
               type="submit"
@@ -173,18 +174,24 @@ const Post = ({ post }: PostType) => {
               Submit
             </button>
           </form>
+
           {/* Comments */}
           <div className="w-full flex flex-col p-10 my-10 mx-auto rounded-sm space-y-2">
             <h3 className="text-3xl font-titleFont font-semibold">Comments</h3>
             <hr />
+
             {post.comments.map((comment) => (
               <div key={comment._id}>
-                <p><span className="text-secondaryColor">{comment.name}</span>{" "}{comment.comment}</p>
+                <p>
+                  <span className="text-secondaryColor">{comment.name}</span>{" "}
+                  {comment.comment}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
@@ -199,17 +206,21 @@ export const getStaticPaths = async () => {
             current
         }
     }`;
+
   const posts = await sanityClient.fetch(query);
+
   const paths = posts.map((post: Post) => ({
     params: {
       slug: post.slug.current,
     },
   }));
+
   return {
     paths,
     fallback: "blocking",
   };
 };
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const query = `*[_type == "post" && slug.current == $slug][0]{
             _id,
@@ -233,6 +244,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       notFound: true,
     };
   }
+
   return {
     props: {
       post,
