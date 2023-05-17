@@ -33,16 +33,18 @@ export default function Home({ posts }: Props) {
         <Header />
 
         <h2 className='flex justify-center  gap-8 uppercase text-xl pt-8'>
-          Research
+          Education
         </h2>
         {/* Add a search bar */}
         <input
-          type='text'
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          placeholder='Search articles...'
-          className='w-full px-3 py-2 my-4 text-lg text-gray-700 bg-gray-200 rounded-md focus:outline-none'
-        />
+  type='text'
+  value={filter}
+  onChange={(e) => setFilter(e.target.value)}
+  placeholder='Search articles...'
+  className='w-2/3 mx-auto px-4 py-2 my-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-md shadow focus:outline-none'
+  style={{fontSize: '1.2rem'}}
+/>
+
 
         <div className='max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 py-6'>
           {filteredPosts.map((post) => (
@@ -72,7 +74,7 @@ export default function Home({ posts }: Props) {
 }
 
 export const getServerSideProps = async () => {
-  const query = `*[_type == "post" && "e71fc20e-f8a9-4604-ae2b-eed49b8a2eae" in categories[]._ref]{
+  const query = `*[_type == "post" && "a42df7ec-32cd-4db9-90d4-0650c1ed575d" in categories[]._ref]{
     _id,
     title,
     author -> {

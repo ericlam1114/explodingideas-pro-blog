@@ -20,8 +20,8 @@ const Header = () => {
             <li className="headerLi">
               <Link href="/research">Research</Link>
             </li>
-            <li className="headerLi">Network</li>
-            <li className="headerLi">Education</li>
+            <li className="headerLi"><Link href="/education">Education</Link></li>
+            <li className="headerLi"><Link href="/network">Network</Link></li>
             <li className="headerLi">Community</li>
           </ul>
         </div>
