@@ -37,7 +37,7 @@ export default function Home({ posts }: Props) {
         {/* ============ Post Part Start here ========= */}
 
         <h2 className="flex justify-center  gap-8 uppercase text-xl pt-8">
-          Newest Opportunities
+          Newest Ideas
         </h2>
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 py-6">
           {posts.map((post) => (
@@ -46,14 +46,26 @@ export default function Home({ posts }: Props) {
                 <p className="font-semibold">{post.title}</p>
               </div>
               <div className=" border-opacity-40 rounded-md group">
-                <div className="flex justify-center  w-full overflow-hidden"></div>
-                <Image
-                  className="rounded-sm shadow-lg border-4 border-gray w-full  object-cover duration-300 "
-                  src={urlFor(post.mainImage).url()!}
-                  alt={post.title}
-                  width={380}
-                  height={350}
-                />
+              <div
+                  className="border-opacity-40 rounded-md group"
+                  style={{
+                    width: "auto",
+                    height: "240px",
+                    position: "relative",
+                  }}
+                >
+                  <Image
+                    className="rounded-sm shadow-lg border-4 border-gray w-full duration-300 "
+                    src={urlFor(post.mainImage).url()!}
+                    alt={post.title}
+                    // width={500}
+                    // height={500}
+                    sizes="(max-width: 600px) 100vw, 600px"
+                    fill={true}
+                    priority={true}
+                  />
+                </div>
+                
 
                 <div className="h-2/5 w-full flex flex-col justify-center">
                   {/* <div className="flex justify-between items-center px-4 py-1 ">
@@ -81,7 +93,7 @@ src={urlFor(post.author.image).url()!} alt="authorImg"/>
 }
 
 export const getServerSideProps = async () => {
-  const query = `*[_type == "post"]{
+  const query = `*[_type == "post"] | order(publishedAt desc) {
     _id,
     title, 
     author -> {
@@ -90,8 +102,9 @@ export const getServerSideProps = async () => {
     },
     description, 
     mainImage, 
-    slug
-  }`;
+    slug,
+    publishedAt
+  }[0..5]`;  // This will limit to the top 6 posts.
   try {
     const posts = await sanityClient.fetch(query);
     return {

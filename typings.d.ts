@@ -1,3 +1,8 @@
+export interface Category {
+  title: string;
+  // any other fields your categories might have
+}
+
 export interface Post {
   _id: string;
   publishedAt: string;
@@ -6,6 +11,7 @@ export interface Post {
     name: string;
     image: string;
   };
+  categories: Category[];
   comments: Comment[];
   description: string;
   mainImage: {
@@ -16,8 +22,9 @@ export interface Post {
   slug: {
     current: string;
   };
-  body: [object];
+  body: object[];
 }
+
 
 export interface Comment {
   approved: boolean;

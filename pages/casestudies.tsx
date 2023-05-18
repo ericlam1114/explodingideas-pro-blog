@@ -76,7 +76,7 @@ export default function Home({ posts }: Props) {
         <Header />
 
         <h2 className="flex justify-center  gap-8 uppercase text-xl pt-8">
-          Research
+          Case Studies
         </h2>
         <input
           type="text"

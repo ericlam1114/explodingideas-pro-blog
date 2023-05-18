@@ -18,11 +18,11 @@ const Header = () => {
               <Link href="/">Home</Link>
             </li>
             <li className="headerLi">
-              <Link href="/research">Research</Link>
+              <Link href="/research">Ideas</Link>
             </li>
             <li className="headerLi"><Link href="/education">Education</Link></li>
-            <li className="headerLi"><Link href="/network">Network</Link></li>
-            <li className="headerLi"><a href="https://slack.com/" target="_blank">Community</a></li>
+            <li className="headerLi"><Link href="/casestudies">Case Studies</Link></li>
+            <li className="headerLi"><Link href="/books">Books</Link></li>
           </ul>
         </div>
         <div className="flex items-center gap-8 text-lg">
