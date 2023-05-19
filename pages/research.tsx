@@ -66,92 +66,98 @@ export default function Home({ posts }: Props) {
   );
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Head>
         <title>Explodingideas Pro</title>
         <link rel="icon" href="/smallLogo.ico" />
       </Head>
 
-      <main className="font-bodyFont">
+      <main className="font-bodyFont flex-grow">
         <Header />
 
-        <h2 className="flex justify-center  gap-8 uppercase text-xl pt-8">
-          Research
-        </h2>
-        <input
-          type="text"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          placeholder="Search articles..."
-          className="w-full px-4 py-2 my-4 text-lg text-gray-700 bg-white shadow rounded-md focus:outline-none focus:shadow-outline"
-        />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8 p-4 md:p-8">
+          <div className="space-y-4">
+            <h2 className="uppercase text-xl">Ideas Archive</h2>
 
-        <select
-          value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
-          className="w-full px-4 py-2 my-4 text-lg text-gray-700 bg-white shadow rounded-md focus:outline-none focus:shadow-outline"
-        >
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="alphabetical">Alphabetical</option>
-        </select>
+            <div className="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0">
+              <input
+                type="text"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                placeholder="Search articles..."
+                className="w-full px-4 py-2 text-lg text-gray-700 bg-white shadow rounded-md focus:outline-none focus:shadow-outline md:mr-4"
+              />
 
-        {allCategories.map((category, index) => (
-          <div key={index} className="flex items-center my-2">
-            <input
-              type="checkbox"
-              id={`checkbox-${index}`}
-              checked={selectedCategories.includes(category)}
-              onChange={() =>
-                setSelectedCategories((currentCategories) =>
-                  currentCategories.includes(category)
-                    ? currentCategories.filter((cat) => cat !== category)
-                    : [...currentCategories, category]
-                )
-              }
-              className="form-checkbox h-5 w-5 text-blue-600"
-            />
-            <label htmlFor={`checkbox-${index}`} className="ml-2 text-gray-700">
-              {category}
-            </label>
+              <select
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+                className="w-full px-4 py-2 text-lg text-gray-700 bg-white shadow rounded-md focus:outline-none focus:shadow-outline"
+              >
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="alphabetical">Alphabetical</option>
+              </select>
+            </div>
+
+            {allCategories.map((category, index) => (
+              <div key={index} className="flex items-center my-2">
+                <input
+                  type="checkbox"
+                  id={`checkbox-${index}`}
+                  checked={selectedCategories.includes(category)}
+                  onChange={() =>
+                    setSelectedCategories((currentCategories) =>
+                      currentCategories.includes(category)
+                        ? currentCategories.filter((cat) => cat !== category)
+                        : [...currentCategories, category]
+                    )
+                  }
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                />
+                <label htmlFor={`checkbox-${index}`} className="ml-2 text-gray-700">
+                  {category}
+                </label>
+              </div>
+            ))}
           </div>
-        ))}
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 py-6">
-          {filteredAndSortedPosts.map((post) => (
-            <Link key={post._id} href={`/post/${post.slug.current}`}>
-              <div className="flex justify-between items-center px-4 py-1 ">
-                <p className="font-semibold">{post.title}</p>
-              </div>
-              <div className=" border-opacity-40 rounded-md group">
-                <div className="flex justify-center  w-full overflow-hidden"></div>
-                <div
-                  className="border-opacity-40 rounded-md group"
-                  style={{
-                    width: "auto",
-                    height: "240px",
-                    position: "relative",
-                  }}
-                >
-                  <Image
-                    className="rounded-sm shadow-lg border-4 border-gray w-full duration-300 "
-                    src={urlFor(post.mainImage).url()!}
-                    alt={post.title}
-                    // width={500}
-                    // height={500}
-                    sizes="(max-width: 600px) 100vw, 600px"
-                    fill={true}
-                    priority={true}
-                  />
+          <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            {filteredAndSortedPosts.map((post) => (
+              <Link key={post._id} href={`/post/${post.slug.current}`}>
+                <div className="border-opacity-40 rounded-md group">
+                  <div className="flex justify-between items-center px-4 py-1 ">
+                    <p className="font-semibold">{post.title}</p>
+                  </div>
+
+                  <div className="flex justify-center  w-full overflow-hidden"></div>
+
+                  <div
+                    className="border-opacity-40 rounded-md group"
+                    style={{
+                      width: "auto",
+                      height: "240px",
+                      position: "relative",
+                    }}
+                  >
+                    <Image
+                      className="rounded-sm shadow-lg border-4 border-gray w-full duration-300 "
+                      src={urlFor(post.mainImage).url()!}
+                      alt={post.title}
+                      sizes="(max-width: 600px) 100vw, 600px"
+                      fill={true}
+                      priority={true}
+                    />
+                  </div>
+
+                  <div className="h-2/5 w-full flex flex-col justify-center"></div>
                 </div>
-
-                <div className="h-2/5 w-full flex flex-col justify-center"></div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
+          </div>
         </div>
-        <Footer />
       </main>
+
+      <Footer />
     </div>
   );
 }
